@@ -5,10 +5,10 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot/public; # Changed for Laravel
     index  index.php index.html index.htm;
-    server_name  example.com www.example.com; 
+    server_name  laravel-tasks-c7cub9fwdpgsa6fg.uaenorth-01.azurewebsites.net; # Changed for Laravel (Our Azure URL)
     port_in_redirect off;
 
-    location / {            
+    location / {
         index  index.php index.html index.htm hostingstart.html;
         try_files $uri $uri/ /index.php?$args; # Changed for Laravel
     }
@@ -19,7 +19,7 @@ server {
     location = /50x.html {
         root   /html/;
     }
-    
+
     # Disable .git directory
     location ~ /\.git {
         deny all;
@@ -37,8 +37,8 @@ server {
         fastcgi_param PATH_INFO $fastcgi_path_info;
         fastcgi_param QUERY_STRING $query_string;
         fastcgi_intercept_errors on;
-        fastcgi_connect_timeout         300; 
-        fastcgi_send_timeout           3600; 
+        fastcgi_connect_timeout         300;
+        fastcgi_send_timeout           3600;
         fastcgi_read_timeout           3600;
         fastcgi_buffer_size 128k;
         fastcgi_buffers 4 256k;
