@@ -11,5 +11,5 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install 22
 
 #3.2 Install and build Node.js dependencies
-npm install
-npm run build
+cd /home/site/wwwroot && npm install
+cd /home/site/wwwroot && npm run build
