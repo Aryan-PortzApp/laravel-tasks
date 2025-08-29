@@ -12,6 +12,7 @@ export default function Tasks({ tasks, elapsed, errors }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         post('/task', {
+            preserveState: false,
             onSuccess: () => {
                 setData({ name: '', description: '' });
             },
@@ -19,7 +20,9 @@ export default function Tasks({ tasks, elapsed, errors }) {
     };
 
     const handleDelete = (taskId) => {
-        destroy(`/task/${taskId}`);
+        destroy(`/task/${taskId}`, {
+            preserveState: false
+        });
     };
 
     return (
