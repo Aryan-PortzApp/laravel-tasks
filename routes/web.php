@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,63 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Models\Task;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
+Route::get('/', [TaskController::class, 'index']);
+Route::post('/task', [TaskController::class, 'store']);
+Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 
-/**
-    * Show Task Dashboard
-    */
-Route::get('/', function () {
-    Log::info("Get /");
-    $startTime = microtime(true);
-    // Simple cache-aside logic
-    if (Cache::has('tasks')) {
-        $data = Cache::get('tasks');
-    } else {
-        $data = Task::orderBy('created_at', 'asc')->get();
-        Cache::add('tasks', $data);
-    }
-    return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
-});
-
-/**
-    * Add New Task
-    */
-Route::post('/task', function (Request $request) {
-    Log::info("Post /task");
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:250',
-        'description' => 'required|max:1000',
+Route::get('/welcome', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => false,
+        'canRegister' => false,
+        'laravelVersion' => app()->version(),
+        'phpVersion' => PHP_VERSION,
     ]);
-
-    if ($validator->fails()) {
-        Log::error("Add task failed.");
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $task = new Task;
-    $task->name = $request->name;
-    $task->description = $request->description;
-    $task->save();
-    // Clear the cache
-    Cache::flush();
-
-    return redirect('/');
-});
-
-/**
-    * Delete Task
-    */
-Route::delete('/task/{id}', function ($id) {
-    Log::info('Delete /task/'.$id);
-    Task::findOrFail($id)->delete();
-    // Clear the cache
-    Cache::flush();
-
-    return redirect('/');
 });
