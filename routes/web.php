@@ -42,6 +42,7 @@ Route::post('/task', function (Request $request) {
     Log::info("Post /task");
     $validator = Validator::make($request->all(), [
         'name' => 'required|max:250',
+        'description' => 'required|max:1000',
     ]);
 
     if ($validator->fails()) {
@@ -53,6 +54,7 @@ Route::post('/task', function (Request $request) {
 
     $task = new Task;
     $task->name = $request->name;
+    $task->description = $request->description;
     $task->save();
     // Clear the cache
     Cache::flush();

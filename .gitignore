@@ -12,3 +12,4 @@ npm-debug.log
 .env
 .env.production
 /.azure
+/.claude/settings.local.json

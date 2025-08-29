@@ -21,7 +21,16 @@
                             <label for="task-name" class="col-sm-3 control-label">Task</label>
 
                             <div class="col-sm-6">
-                                <input type="text" name="name" id="task-name" class="form-control" value="{{ old('task') }}">
+                                <input type="text" name="name" id="task-name" class="form-control" value="{{ old('name') }}">
+                            </div>
+                        </div>
+
+                        <!-- Task Description -->
+                        <div class="form-group">
+                            <label for="task-description" class="col-sm-3 control-label">Description</label>
+
+                            <div class="col-sm-6">
+                                <textarea name="description" id="task-description" class="form-control" rows="3">{{ old('description') }}</textarea>
                             </div>
                         </div>
 
@@ -48,12 +57,14 @@
                         <table class="table table-striped task-table">
                             <thead>
                                 <th>Task</th>
+                                <th>Description</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
                                 @foreach ($tasks as $task)
                                     <tr>
                                         <td class="table-text"><div>{{ $task->name }}</div></td>
+                                        <td class="table-text"><div>{{ $task->description }}</div></td>
 
                                         <!-- Task Delete Button -->
                                         <td>
