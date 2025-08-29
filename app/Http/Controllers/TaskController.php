@@ -62,7 +62,7 @@ class TaskController extends Controller
         // Clear the cache
         Cache::flush();
 
-        return redirect('/');
+        return to_route('tasks.index');
     }
 
     /**
@@ -76,6 +76,6 @@ class TaskController extends Controller
         // Clear the cache
         Cache::flush();
 
-        return redirect('/');
+        return to_route('tasks.index');
     }
 }

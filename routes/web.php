@@ -15,7 +15,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [TaskController::class, 'index']);
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 Route::post('/task', [TaskController::class, 'store']);
 Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 
